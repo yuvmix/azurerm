@@ -28,7 +28,7 @@ resource "azurerm_linux_virtual_machine" "dev_lvm" {
   }
   
   provisioner "local-exec" {
-    command = templatefile("my_linux_scritp.tpl", {
+    command = templatefile("my_linux_ssh_scritp.tpl", {
       hostname = self.public_ip_address,
       user = "adminuser",
       identityfile = "~/.ssh/id_rsa"
