@@ -34,7 +34,7 @@ resource "azurerm_linux_virtual_machine" "dev_lvm" {
       identityfile = "~/.ssh/id_rsa"
     })
 
-    interpreter = ["bash", "-c"]
+    interpreter = ["bash", "-c"] # var.host_os =="windows" ? ["Powershell", "-Command"] : ["bash", "-c"]
   }
 
   tags = {
