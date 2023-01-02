@@ -1,7 +1,7 @@
 resource "azurerm_network_interface" "dev_nic" {
   name                = "dev_nic"
   location            = azurerm_resource_group.dev_rg.location
-  resource_gruop_name = azurerm_resource_group.dev_rg.name
+  resource_group_name = azurerm_resource_group.dev_rg.name
 
   ip_configuration {
     name                          = "internal"
