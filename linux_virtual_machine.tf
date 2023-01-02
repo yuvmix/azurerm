@@ -8,7 +8,7 @@ resource "azurerm_linux_virtual_machine" "dev_lvm" {
     azurerm_network_interface.dev_nic.id
   ]
 
-  custom_data = filebase64("custom_data.tpl")
+  custom_data = filebase64("script/custom_data.tpl")
 
   admin_ssh_key {
     username   = "adminuser"
@@ -28,7 +28,7 @@ resource "azurerm_linux_virtual_machine" "dev_lvm" {
   }
 
   provisioner "local-exec" {
-    command = templatefile("my_linux_ssh_script.tpl", {
+    command = templatefile("script/my_linux_ssh_script.tpl", {
       hostname     = self.public_ip_address,
       user         = "adminuser",
       identityfile = "~/.ssh/id_rsa"
