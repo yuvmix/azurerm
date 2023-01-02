@@ -8,7 +8,7 @@ resource "azurerm_linux_virtual_machine" "dev_lvm" {
     azurerm_network_interface.dev_nic.id
   ]
 
-  custom_data = filebase64("scripts/custom_data.tpl")
+  custom_data = filebase64("~/azurerm/scripts/custom_data.tpl")
 
   admin_ssh_key {
     username   = "adminuser"

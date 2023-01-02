@@ -3,3 +3,5 @@
 !*.tf
 !*.tpl
 !.gitignore
+
+!scripts
