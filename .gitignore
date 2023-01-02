@@ -4,4 +4,4 @@
 !*.tpl
 !.gitignore
 
-!scripts
+!*/
