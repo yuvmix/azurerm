@@ -1,5 +1,5 @@
 resource "azurerm_linux_virtual_machine" "dev_lvm" {
-  name                = "dev_lvm"
+  name                = "dev-lvm"
   resource_group_name = azurerm_resource_group.dev_rg.name
   location            = azurerm_resource_group.dev_rg.location
   size                = "Standard_F2"
@@ -21,7 +21,7 @@ resource "azurerm_linux_virtual_machine" "dev_lvm" {
   source_image_reference {
     publisher = "Canonical"
     offer     = "UbuntuServer"
-    sku       = "20.04-LTS"
+    sku       = "18.04-LTS"
     version   = "latest"
   }
 }
