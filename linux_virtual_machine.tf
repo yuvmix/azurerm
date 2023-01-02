@@ -26,4 +26,18 @@ resource "azurerm_linux_virtual_machine" "dev_lvm" {
     sku       = "18.04-LTS"
     version   = "latest"
   }
+  
+  provisioner "local-exec" {
+    command = templatefile("my_linux_scritp.tpl", {
+      hostname = self.public_ip_address,
+      user = "adminuser",
+      identityfile = "~/.ssh/id_rsa"
+    })
+    
+    interperter = ["bash", "-c"]
+  }
+  
+  tags = {
+    environment = "dev"
+  }
 }
