@@ -1,6 +1,6 @@
 resource "azurerm_network_security_rule" "dev_sr" {
 
-  for_each = toset(["http", "ssh"])
+  for_each = var.rule_protocol_set
 
   name                        = "dev_sr_${each.key}"
   priority                    = 100
