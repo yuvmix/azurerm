@@ -26,4 +26,18 @@ resource "azurerm_lb_backend_address_pool_address" "dev_lb_address_pool_address"
   backend_address_pool_id = azurerm_lb_backend_address_pool.dev_lb_address_pool.id
   virtual_network_id = azurerm_virtual_network.dev_vn.id
 }
-  
+
+resource "azurerm_lb_probe" "dev_lb_http_probe" {
+  loadbalancer_id = azurerm_lb.dev_lb.id
+  name = "dev_lb_http_probe"
+  port = 80
+}
+
+resource "azurerm_lb_rule" "dev_lb_http_rule" {
+  loadbalancer_id = azurerm_lb.dev_lb.id
+  name = "dev_lb_http_rule"
+  protocol = "Tcp"
+  frontend_port = 80 
+  backend_port = 80
+  frontend_ip_configuration_name = "dev_lb_public_ip"
+}
