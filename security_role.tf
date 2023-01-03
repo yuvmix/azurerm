@@ -1,9 +1,12 @@
 resource "azurerm_network_security_rule" "dev_sr" {
-  name                        = "dev_sr"
+
+  for_each = toset([ "http", "ssh"])
+
+  name                        = "dev_sr_${each.key}"
   priority                    = 100
   direction                   = "Inbound"
   access                      = "Allow"
-  protocol                    = "*"
+  protocol                    = each.key 
   source_port_range           = "*"
   destination_port_range      = "*"
   source_address_prefix       = "*"
