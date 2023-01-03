@@ -1,3 +1,3 @@
 variable "vms_amount" {
-  default = 2 
+  default = 2
 }
