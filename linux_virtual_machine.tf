@@ -5,16 +5,16 @@ resource "azurerm_linux_virtual_machine" "dev_lvm" {
   name                = "dev-lvm-${count.index}"
   resource_group_name = azurerm_resource_group.dev_rg.name
   location            = azurerm_resource_group.dev_rg.location
-  size                = "Standard_F2" # data source 
-  admin_username      = "adminuser"
+  size                = var.lvm_size  
+  admin_username      = var.username
   network_interface_ids = [azurerm_network_interface.dev_nic[count.index].id]
 
   # attribute so you can run scripts as the machine created without the need of provision
-  custom_data = filebase64("~/azurerm/scripts/custom_data.tpl")
+  custom_data = filebase64(var.custom_data_file_path)
 
   admin_ssh_key {
-    username   = "adminuser"
-    public_key = file("~/.ssh/id_rsa.pub")
+    username   = var.username
+    public_key = file(var.public_key_path_file)
   }
 
   os_disk {
@@ -22,7 +22,7 @@ resource "azurerm_linux_virtual_machine" "dev_lvm" {
     storage_account_type = "Standard_LRS"
   }
 
-  source_image_reference { # make data source
+  source_image_reference { 
     publisher = "Canonical"
     offer     = "UbuntuServer"
     sku       = "18.04-LTS"
@@ -31,10 +31,10 @@ resource "azurerm_linux_virtual_machine" "dev_lvm" {
 
   # script to structure the info of the vm so could ssh easly check the other scripts
   provisioner "local-exec" {
-    command = templatefile("scripts/my_linux_ssh_script.tpl", {
+    command = templatefile(var.templatefile_template_path, {
       hostname     = self.public_ip_address,
-      user         = "adminuser",
-      identityfile = "~/.ssh/id_rsa"
+      user         = var.username,
+      identityfile = var.identityfile
     })
 
     interpreter = ["bash", "-c"] # var.host_os =="windows" ? ["Powershell", "-Command"] : ["bash", "-c"]
