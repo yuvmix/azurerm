@@ -13,3 +13,4 @@ echo \
 sudo apt-get -y update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io 
 sudo usermod -aG docker ubuntu
+docker run -p 80:8000 -d lalalili123yu/exercise24_web:1
