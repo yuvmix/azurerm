@@ -5,12 +5,11 @@ resource "azurerm_linux_virtual_machine" "dev_lvm" {
   name                = "dev-lvm-${count.index}"
   resource_group_name = azurerm_resource_group.dev_rg.name
   location            = azurerm_resource_group.dev_rg.location
-  size                = "Standard_F2"
+  size                = "Standard_F2" # data source 
   admin_username      = "adminuser"
-  network_interface_ids = [
-    azurerm_network_interface.dev_nic[count.index].id
-  ]
+  network_interface_ids = [azurerm_network_interface.dev_nic[count.index].id]
 
+  # attribute so you can run scripts as the machine created without the need of provision
   custom_data = filebase64("~/azurerm/scripts/custom_data.tpl")
 
   admin_ssh_key {
@@ -23,13 +22,14 @@ resource "azurerm_linux_virtual_machine" "dev_lvm" {
     storage_account_type = "Standard_LRS"
   }
 
-  source_image_reference {
+  source_image_reference { # make data source
     publisher = "Canonical"
     offer     = "UbuntuServer"
     sku       = "18.04-LTS"
     version   = "latest"
   }
 
+  # script to structure the info of the vm so could ssh easly check the other scripts
   provisioner "local-exec" {
     command = templatefile("scripts/my_linux_ssh_script.tpl", {
       hostname     = self.public_ip_address,
