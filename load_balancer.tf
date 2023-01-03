@@ -24,10 +24,13 @@ resource "azurerm_lb_backend_address_pool" "dev_lb_address_pool" {
 }
 
 resource "azurerm_lb_backend_address_pool_address" "dev_lb_address_pool_address" {
-  name                    = "dev_lb_address_pool_address"
+
+  count = var.vms_amount
+
+  name                    = "dev_lb_address_pool_address_${count.index}"
   backend_address_pool_id = azurerm_lb_backend_address_pool.dev_lb_address_pool.id
   virtual_network_id      = azurerm_virtual_network.dev_vn.id
-  ip_address              = azurerm_network_interface.dev_nic.private_ip_address
+  ip_address              = azurerm_network_interface.dev_nic[count.index].private_ip_address
 }
 
 resource "azurerm_lb_probe" "dev_lb_http_probe" {

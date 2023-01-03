@@ -1,11 +1,14 @@
 resource "azurerm_linux_virtual_machine" "dev_lvm" {
-  name                = "dev-lvm"
+
+  count = var.vms_amount
+
+  name                = "dev-lvm-${count.index}"
   resource_group_name = azurerm_resource_group.dev_rg.name
   location            = azurerm_resource_group.dev_rg.location
   size                = "Standard_F2"
   admin_username      = "adminuser"
   network_interface_ids = [
-    azurerm_network_interface.dev_nic.id
+    azurerm_network_interface.dev_nic[count.index].id
   ]
 
   custom_data = filebase64("~/azurerm/scripts/custom_data.tpl")
