@@ -4,6 +4,10 @@ resource "azurerm_public_ip" "dev_lb_ip" {
   resource_group_name = azurerm_resource_group.dev_rg.name
   allocation_method   = "Static"
   sku                 = "Standard"
+  
+  tags = {
+    environment = "dev"
+  }
 }
 
 resource "azurerm_lb" "dev_lb" {
@@ -16,11 +20,19 @@ resource "azurerm_lb" "dev_lb" {
     name                 = "dev_lb_public_ip"
     public_ip_address_id = azurerm_public_ip.dev_lb_ip.id
   }
+  
+  tags = {
+    environment = "dev"
+  }
 }
 
 resource "azurerm_lb_backend_address_pool" "dev_lb_address_pool" {
   name            = "dev_lb_address_pool"
   loadbalancer_id = azurerm_lb.dev_lb.id
+  
+  tags = {
+    environment = "dev"
+  }
 }
 
 resource "azurerm_lb_backend_address_pool_address" "dev_lb_address_pool_address" {
@@ -31,6 +43,10 @@ resource "azurerm_lb_backend_address_pool_address" "dev_lb_address_pool_address"
   backend_address_pool_id = azurerm_lb_backend_address_pool.dev_lb_address_pool.id
   virtual_network_id      = azurerm_virtual_network.dev_vn.id
   ip_address              = azurerm_network_interface.dev_nic[count.index].private_ip_address
+  
+  tags = {
+    environment = "dev"
+  }
 }
 
 resource "azurerm_lb_probe" "dev_lb_http_probe" {
@@ -38,6 +54,10 @@ resource "azurerm_lb_probe" "dev_lb_http_probe" {
   name            = "dev_lb_http_probe"
   port            = 80
   protocol        = "Tcp"
+  
+  tags = {
+    environment = "dev"
+  }
 }
 
 resource "azurerm_lb_rule" "dev_lb_http_rule" {
@@ -49,4 +69,8 @@ resource "azurerm_lb_rule" "dev_lb_http_rule" {
   frontend_ip_configuration_name = "dev_lb_public_ip"
   probe_id                       = azurerm_lb_probe.dev_lb_http_probe.id
   backend_address_pool_ids       = [azurerm_lb_backend_address_pool.dev_lb_address_pool.id]
+  
+  tags = {
+    environment = "dev"
+  }
 }
