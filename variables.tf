@@ -63,7 +63,7 @@ variable "identityfile" {
   default = "~/.ssh/id_rsa"
 }
 
-# load_balancer.tf
+# load_balancer.tf and public_ip.tf
 variable "lb_ip_allocation_method" {
   default = "Static"
 }
@@ -74,7 +74,7 @@ variable "lb_sku" {
 
 # used to create pools to the lb and for each pool its rule and probe
 # when create new pool should notice azurerm_lb_backend_address_pool_address resources to give appropriate pool
-# can't same configurations to diff names..
+# can't have 2 rules with the same configurations even with diff names..
 variable "lb_pools_rules_probes" {
   default = {
     http = {
