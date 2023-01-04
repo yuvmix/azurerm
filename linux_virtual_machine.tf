@@ -28,7 +28,7 @@ resource "azurerm_linux_virtual_machine" "dev_lvm" {
     sku       = "18.04-LTS"
     version   = "latest"
   }
-
+/*
   # script to structure the info of the vm so could ssh easly check the other scripts
   provisioner "local-exec" {
     command = templatefile(var.templatefile_template_path, {
@@ -39,7 +39,7 @@ resource "azurerm_linux_virtual_machine" "dev_lvm" {
 
     interpreter = ["bash", "-c"] # var.host_os =="windows" ? ["Powershell", "-Command"] : ["bash", "-c"]
   }
-
+*/
   tags = {
     environment = "dev"
   }

@@ -36,7 +36,7 @@ variable "inbound_tcp_allow_rules" {
 
 # linux_virtual_machine.tf 
 variable "vms_amount" {
-  default = 2 # can be up to 251 machines because of subnet size an azure ips reservation per subnet
+  default = 2 # can be up to 250 machines because of subnet size an azure ips reservation per subnet   use 251 for 2 subnets
 }
 
 variable "lvm_size" {

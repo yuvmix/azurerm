@@ -1,3 +1,4 @@
+/*
 # the publics ips for the vms
 resource "azurerm_public_ip" "dev_ip" {
 
@@ -12,6 +13,7 @@ resource "azurerm_public_ip" "dev_ip" {
     environment = "dev"
   }
 }
+*/
 
 # load balancer public ip for frontend configuration
 resource "azurerm_public_ip" "dev_lb_ip" {
