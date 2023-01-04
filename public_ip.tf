@@ -12,3 +12,16 @@ resource "azurerm_public_ip" "dev_ip" {
     environment = "dev"
   }
 }
+
+# load balancer public ip for frontend configuration
+resource "azurerm_public_ip" "dev_lb_ip" {
+  name                = "dev_lb_ip"
+  location            = azurerm_resource_group.dev_rg.location
+  resource_group_name = azurerm_resource_group.dev_rg.name
+  allocation_method   = var.lb_ip_allocation_method
+  sku                 = var.lb_sku
+
+  tags = {
+    environment = "dev"
+  }
+}

@@ -36,7 +36,7 @@ variable "inbound_tcp_allow_rules" {
 
 # linux_virtual_machine.tf 
 variable "vms_amount" {
-  default = 2
+  default = 2 # can be up to 251 machines
 }
 
 variable "lvm_size" {
@@ -74,6 +74,7 @@ variable "lb_sku" {
 
 # used to create pools to the lb and for each pool its rule and probe
 # when create new pool should notice azurerm_lb_backend_address_pool_address resources to give appropriate pool
+# can't same configurations to diff names..
 variable "lb_pools_rules_probes" {
   default = {
     http = {
