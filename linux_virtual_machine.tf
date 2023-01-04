@@ -2,11 +2,11 @@ resource "azurerm_linux_virtual_machine" "dev_lvm" {
 
   count = var.vms_amount
 
-  name                = "dev-lvm-${count.index}"
-  resource_group_name = azurerm_resource_group.dev_rg.name
-  location            = azurerm_resource_group.dev_rg.location
-  size                = var.lvm_size  
-  admin_username      = var.username
+  name                  = "dev-lvm-${count.index}"
+  resource_group_name   = azurerm_resource_group.dev_rg.name
+  location              = azurerm_resource_group.dev_rg.location
+  size                  = var.lvm_size
+  admin_username        = var.username
   network_interface_ids = [azurerm_network_interface.dev_nic[count.index].id]
 
   # attribute so you can run scripts as the machine created without the need of provision
@@ -22,7 +22,7 @@ resource "azurerm_linux_virtual_machine" "dev_lvm" {
     storage_account_type = "Standard_LRS"
   }
 
-  source_image_reference { 
+  source_image_reference {
     publisher = "Canonical"
     offer     = "UbuntuServer"
     sku       = "18.04-LTS"

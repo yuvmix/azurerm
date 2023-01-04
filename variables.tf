@@ -19,8 +19,19 @@ variable "ip_allocation_method" {
 }
 
 # security rule.tf
-variable "rule_protocol_set" {
-  default = toset(["http", "ssh"])
+variable "inbound_tcp_allow_rules" {
+  default = [
+    {
+      name                   = "http"
+      priority               = 200
+      destination_port_range = 80
+    },
+    {
+      name                   = "ssh"
+      priority               = 150
+      destination_port_range = 22
+    }
+  ]
 }
 
 # linux_virtual_machine.tf 
@@ -49,7 +60,7 @@ variable "templatefile_template_path" {
 }
 
 variable "identityfile" {
-  default =  "~/.ssh/id_rsa"
+  default = "~/.ssh/id_rsa"
 }
 
 # load_balancer.tf
@@ -57,7 +68,7 @@ variable "lb_ip_allocation_method" {
   default = "Static"
 }
 
-variable "lb_sku" { 
+variable "lb_sku" {
   default = "Standard"
 }
 
