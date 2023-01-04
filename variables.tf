@@ -84,3 +84,15 @@ variable "lb_rule_backend_port" {
   default = 80
 }
 
+# used to create pools to the lb and for each pool its rule and probe
+# when create new pool should notice azurerm_lb_backend_address_pool_address resources to give appropriate pool
+variable "lb_pools_rules_probes" {
+  default = { 
+    http = {
+      # name                   = "http" # for the pool, rule and probe
+      frontend_port               = 200
+      backend_port     = 80 # rule and probe
+      protocol = "Tcp" # rule and probe
+    },
+  }
+}
