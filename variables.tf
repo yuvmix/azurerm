@@ -20,18 +20,18 @@ variable "ip_allocation_method" {
 
 # security rule.tf
 variable "inbound_tcp_allow_rules" {
-  default = [
-    {
-      name                   = "http"
+  default = {
+    http = {
+      # name                   = "http"
       priority               = 200
       destination_port_range = 80
     },
-    {
-      name                   = "ssh"
+    ssh = {
+      # name                   = "ssh"
       priority               = 150
       destination_port_range = 22
     }
-  ]
+  }
 }
 
 # linux_virtual_machine.tf 
@@ -72,27 +72,15 @@ variable "lb_sku" {
   default = "Standard"
 }
 
-variable "lb_rule_name" {
-  default = "http"
-}
-
-variable "lb_rule_frontend_port" {
-  default = 80
-}
-
-variable "lb_rule_backend_port" {
-  default = 80
-}
-
 # used to create pools to the lb and for each pool its rule and probe
 # when create new pool should notice azurerm_lb_backend_address_pool_address resources to give appropriate pool
 variable "lb_pools_rules_probes" {
-  default = { 
+  default = {
     http = {
       # name                   = "http" # for the pool, rule and probe
-      frontend_port               = 200
-      backend_port     = 80 # rule and probe
-      protocol = "Tcp" # rule and probe
+      frontend_port = 80
+      backend_port  = 80    # rule and probe
+      protocol      = "Tcp" # rule and probe
     },
   }
 }

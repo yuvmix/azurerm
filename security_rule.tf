@@ -1,8 +1,8 @@
 resource "azurerm_network_security_rule" "dev_sr" {
 
-  for_each = toset(var.inbound_tcp_allow_rules)
+  for_each = var.inbound_tcp_allow_rules
 
-  name                        = "dev_sr_${each.value["name"]}"
+  name                        = "dev_sr_${each.key}"
   priority                    = each.value["priority"]
   direction                   = "Inbound"
   access                      = "Allow"
