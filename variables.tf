@@ -51,3 +51,25 @@ variable "templatefile_template_path" {
 variable "identityfile" {
   default =  "~/.ssh/id_rsa"
 }
+
+# load_balancer.tf
+variable "lb_ip_allocation_method" {
+  default = "Static"
+}
+
+variable "lb_sku" { 
+  default = "Standard"
+}
+
+variable "lb_rule_name" {
+  default = "http"
+}
+
+variable "lb_rule_frontend_port" {
+  default = 80
+}
+
+variable "lb_rule_backend_port" {
+  default = 80
+}
+
